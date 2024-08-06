@@ -8,7 +8,7 @@
 import Foundation
 enum APIEndpoints{
     static let baseUrl="https://api.github.com/users/"
-    static let perPage=60
+    static let perPage=80
 }
 
 enum GFError:String, Error{

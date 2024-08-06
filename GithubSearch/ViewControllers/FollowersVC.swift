@@ -14,6 +14,8 @@ class FollowersVC: UIViewController {
     private var followers:[FolloworsModel]=[]
     var dataSource:UICollectionViewDiffableDataSource<Section, FolloworsModel>!
     var collectionView:UICollectionView!
+    var page:Int=1
+    var hasMoreFollowers:Bool=true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,7 +25,7 @@ class FollowersVC: UIViewController {
         
 
         configCollectionView()
-        getFollowers()
+        getFollowers(username: username, page: page)
         configDataSource()
 
     }
@@ -34,7 +36,7 @@ class FollowersVC: UIViewController {
         collectionView.backgroundColor = .systemBackground
         collectionView.register(GFCell.self, forCellWithReuseIdentifier: GFCell.reuseId)
 //        collectionView.dataSource=self
-//        collectionView.delegate=self
+        collectionView.delegate=self
     }
     
     func threeColumnLayOut()->UICollectionViewLayout{
@@ -51,13 +53,16 @@ class FollowersVC: UIViewController {
         return flowLayout
     }
     
-    func getFollowers(){
-        NetworkLayer.shared.getFollowers(username: username, page: 1) {[weak self] result in
+    func getFollowers(username:String, page:Int){
+        NetworkLayer.shared.getFollowers(username: username, page: page) {[weak self] result in
             guard let self=self else {return}
             switch result {
             case .success(let success):
                 DispatchQueue.main.async {
-                    self.followers=success
+                    if success.count<APIEndpoints.perPage {
+                        self.hasMoreFollowers=false
+                    }
+                    self.followers.append(contentsOf: success)
 //                    self.collectionView.reloadData()
                     self.updateData()
 //                    print(self.followers,"followers")
@@ -86,7 +91,20 @@ class FollowersVC: UIViewController {
     }
 
 }
+extension FollowersVC:UICollectionViewDelegate{
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        let offsetY=scrollView.contentOffset.y /// it will changes according to scroll
+        let contentHeight=scrollView.contentSize.height /// height of contet size if list contain (60,100) items
+        let height=scrollView.frame.size.height /// depends on screen size
 
+        if offsetY>contentHeight-height{
+            guard hasMoreFollowers else {return}
+            print("new followers")
+            page += 1
+            getFollowers(username: username, page: page)
+        }
+    }
+}
 //extension FollowersVC:UICollectionViewDelegate, UICollectionViewDataSource{
 //    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 //        return followers.count
