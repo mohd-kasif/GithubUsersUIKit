@@ -54,8 +54,10 @@ class FollowersVC: UIViewController {
     }
     
     func getFollowers(username:String, page:Int){
+        showLoadingView()
         NetworkLayer.shared.getFollowers(username: username, page: page) {[weak self] result in
             guard let self=self else {return}
+            dismissLoadingView()
             switch result {
             case .success(let success):
                 DispatchQueue.main.async {

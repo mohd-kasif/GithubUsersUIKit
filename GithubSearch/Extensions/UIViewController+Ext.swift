@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+fileprivate var container:UIView!
 extension UIViewController{
     func presentAlertMainThread(title:String, message:String, buttonTitle:String){
         DispatchQueue.main.async {
@@ -14,6 +14,33 @@ extension UIViewController{
             alertVC.modalPresentationStyle = .overFullScreen
             alertVC.modalTransitionStyle = .crossDissolve
             self.present(alertVC, animated: true)
+        }
+    }
+    
+    func showLoadingView(){
+        container=UIView(frame: view.bounds)
+        view.addSubview(container)
+        container.backgroundColor = .systemBackground
+        container.alpha=0
+        UIView.animate(withDuration: 0.25, animations: {
+            container.alpha=0.8
+        })
+        let activityIndicator=UIActivityIndicatorView(style: .large)
+        container.addSubview(activityIndicator)
+        
+        activityIndicator.translatesAutoresizingMaskIntoConstraints=false
+        
+        NSLayoutConstraint.activate([
+            activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        ])
+        
+        activityIndicator.startAnimating()
+    }
+    func dismissLoadingView(){
+        DispatchQueue.main.async {
+            container.removeFromSuperview()
+            container=nil
         }
     }
 }
