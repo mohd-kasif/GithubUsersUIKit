@@ -24,7 +24,7 @@ class SearchVC: UIViewController {
     }
     @objc func follow(){
         guard istextfieldEmpty else {
-            presentAlertMainThread(title: "Empty Username", message: "Please enter a username. We need to who to look for 😔", buttonTitle: "Ok") //  to enter emoji press (command+control+space)
+            presentAlertMainThread(title: "Empty Username", message: "Please enter a username. We need to check who you are looking for 😔", buttonTitle: "Ok") //  to enter emoji press (command+control+space)
             return
         }
         let followList=FollowersVC()
@@ -68,9 +68,9 @@ class SearchVC: UIViewController {
         view.addGestureRecognizer(tap)
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        navigationController?.isNavigationBarHidden=true
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: true)
     }
 
 }
