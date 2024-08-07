@@ -17,6 +17,7 @@ class FollowersVC: UIViewController {
     var collectionView:UICollectionView!
     var page:Int=1
     var hasMoreFollowers:Bool=true
+    var isSearching:Bool=false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,7 +39,7 @@ class FollowersVC: UIViewController {
         collectionView.backgroundColor = .systemBackground
         collectionView.register(GFCell.self, forCellWithReuseIdentifier: GFCell.reuseId)
 //        collectionView.dataSource=self
-//        collectionView.delegate=self
+        collectionView.delegate=self
     }
     
     func threeColumnLayOut()->UICollectionViewLayout{
@@ -101,6 +102,7 @@ class FollowersVC: UIViewController {
     func configSearchController(){
         let searchTextField=UISearchController()
         searchTextField.searchResultsUpdater=self
+        searchTextField.searchBar.delegate=self
         searchTextField.searchBar.placeholder="Enter username"
         navigationItem.searchController=searchTextField
     }
@@ -119,16 +121,33 @@ extension FollowersVC:UICollectionViewDelegate{
             getFollowers(username: username, page: page)
         }
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let activeArray=isSearching ? filterFollowers : followers
+        let data=activeArray[indexPath.item]
+        let userinfoVc=UserInfoVC()
+        userinfoVc.username=data.login
+        present(UINavigationController(rootViewController: userinfoVc), animated: true)
+//        navigationController?.pushViewController(UserInfoVC(follower: data), animated: true)
+        
+//        print(data,"data")
+
+    }
 }
 
-extension FollowersVC:UISearchResultsUpdating{
+extension FollowersVC:UISearchResultsUpdating, UISearchBarDelegate{
     func updateSearchResults(for searchController: UISearchController) {
         guard let filter=searchController.searchBar.text, !filter.isEmpty else {return}
+        isSearching=true
         filterFollowers=followers.filter({ data in
             data.login.lowercased().contains(filter.lowercased())
         })
         updateData(data: filterFollowers)
-
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        isSearching=false
+        updateData(data: followers)
     }
     
     

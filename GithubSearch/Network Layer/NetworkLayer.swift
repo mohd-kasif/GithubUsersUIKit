@@ -44,4 +44,30 @@ final class NetworkLayer{
         dataTask.resume()
 
     }
+    
+    func getUserInfo(loginId username:String, completion:@escaping (Result<UserInfoModel, GFError>)->Void){
+        let endPoint=APIEndpoints.baseUrl+"\(username)"
+        
+        guard let urlString=URL(string: endPoint) else {
+            completion(.failure(.invlaidUrl))
+            return
+        }
+        let dataTask=URLSession.shared.dataTask(with: urlString){data, response, error in
+            if let _ = error{
+                completion(.failure(.serverError))
+            }
+            guard let data=data, let response=response as? HTTPURLResponse, response.statusCode==200 else {
+                completion(.failure(.invalidData))
+                return
+            }
+            
+            do {
+                let decodedData=try JSONDecoder().decode(UserInfoModel.self, from: data)
+                completion(.success(decodedData))
+            } catch {
+                completion(.failure(.invalidData))
+            }
+        }
+        dataTask.resume()
+    }
 }

@@ -66,7 +66,7 @@ struct FolloworsModel:Codable,Hashable{
    "updated_at": "2024-07-04T13:24:35Z"
  }
  */
-struct UserModel:Codable{
+struct UserInfoModel:Codable{
     let login:String
     let avatar_url:String
     let name:String?

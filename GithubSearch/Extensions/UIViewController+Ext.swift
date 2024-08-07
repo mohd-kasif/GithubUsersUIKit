@@ -52,3 +52,26 @@ extension UIViewController{
         
     }
 }
+
+extension String{
+    func convertDate()->Date?{
+        let dateFormatter=DateFormatter()
+        dateFormatter.dateFormat="yyyy-MM-dd'T'HH:mm:ssZ"
+        dateFormatter.locale=Locale(identifier: "en_IN")
+        dateFormatter.timeZone = .current
+        return dateFormatter.date(from: self)!
+    }
+    
+    func convertToDisplayDate()->String{
+        guard let date=self.convertDate() else {return "NA"}
+        return date.convertDateToString()
+    }
+}
+
+extension Date{
+    func convertDateToString()->String{
+        let dateFormatter=DateFormatter()
+        dateFormatter.dateFormat="MMM d, yyyy"
+        return dateFormatter.string(from: self)
+    }
+}

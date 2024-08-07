@@ -8,11 +8,11 @@
 import UIKit
 
 class GithubButton: UIButton {
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         //custom code here
-//        setupButtonUI()
+        setupButtonUI()
         
     }
     
@@ -32,5 +32,10 @@ class GithubButton: UIButton {
         setTitleColor(.white, for: .normal)
         titleLabel?.font=UIFont.preferredFont(forTextStyle: .headline)
         translatesAutoresizingMaskIntoConstraints=false
+    }
+    
+    func configButton(background:UIColor, title:String){
+        self.backgroundColor=background
+        self.setTitle(title, for: .normal)
     }
 }
