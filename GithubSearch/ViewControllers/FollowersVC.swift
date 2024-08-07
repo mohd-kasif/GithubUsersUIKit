@@ -12,6 +12,7 @@ enum Section{
 class FollowersVC: UIViewController {
     var username:String!
     private var followers:[FolloworsModel]=[]
+    var filterFollowers:[FolloworsModel]=[]
     var dataSource:UICollectionViewDiffableDataSource<Section, FolloworsModel>!
     var collectionView:UICollectionView!
     var page:Int=1
@@ -27,6 +28,7 @@ class FollowersVC: UIViewController {
         configCollectionView()
         getFollowers(username: username, page: page)
         configDataSource()
+        configSearchController()
 
     }
     
@@ -36,7 +38,7 @@ class FollowersVC: UIViewController {
         collectionView.backgroundColor = .systemBackground
         collectionView.register(GFCell.self, forCellWithReuseIdentifier: GFCell.reuseId)
 //        collectionView.dataSource=self
-        collectionView.delegate=self
+//        collectionView.delegate=self
     }
     
     func threeColumnLayOut()->UICollectionViewLayout{
@@ -65,8 +67,12 @@ class FollowersVC: UIViewController {
                         self.hasMoreFollowers=false
                     }
                     self.followers.append(contentsOf: success)
+                    if self.followers.isEmpty{
+                        self.showEmptyStateVC(message: "This user doesn't have any followers. Go and follow them 😔.", view: self.view)
+                        return
+                    }
 //                    self.collectionView.reloadData()
-                    self.updateData()
+                    self.updateData(data: self.followers)
 //                    print(self.followers,"followers")
                 }
             case .failure(let failure):
@@ -83,13 +89,20 @@ class FollowersVC: UIViewController {
         })
     }
     
-    func updateData(){
+    func updateData(data:[FolloworsModel]){
         var snapShot=NSDiffableDataSourceSnapshot<Section, FolloworsModel>()
         snapShot.appendSections([.main])
-        snapShot.appendItems(followers)
+        snapShot.appendItems(data)
         DispatchQueue.main.async {
             self.dataSource.apply(snapShot, animatingDifferences: true)
         }
+    }
+    
+    func configSearchController(){
+        let searchTextField=UISearchController()
+        searchTextField.searchResultsUpdater=self
+        searchTextField.searchBar.placeholder="Enter username"
+        navigationItem.searchController=searchTextField
     }
 
 }
@@ -106,6 +119,19 @@ extension FollowersVC:UICollectionViewDelegate{
             getFollowers(username: username, page: page)
         }
     }
+}
+
+extension FollowersVC:UISearchResultsUpdating{
+    func updateSearchResults(for searchController: UISearchController) {
+        guard let filter=searchController.searchBar.text, !filter.isEmpty else {return}
+        filterFollowers=followers.filter({ data in
+            data.login.lowercased().contains(filter.lowercased())
+        })
+        updateData(data: filterFollowers)
+
+    }
+    
+    
 }
 //extension FollowersVC:UICollectionViewDelegate, UICollectionViewDataSource{
 //    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

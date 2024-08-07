@@ -26,6 +26,7 @@
 		4B5CFFF92C623E6600741200 /* APIEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5CFFF82C623E6600741200 /* APIEndpoints.swift */; };
 		4B5CFFFB2C624DAB00741200 /* GFCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5CFFFA2C624DAB00741200 /* GFCell.swift */; };
 		4B5CFFFD2C624E6900741200 /* GFAvatarImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5CFFFC2C624E6900741200 /* GFAvatarImageView.swift */; };
+		4B5CFFFF2C62B35900741200 /* GFEmptyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5CFFFE2C62B35800741200 /* GFEmptyVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +51,7 @@
 		4B5CFFF82C623E6600741200 /* APIEndpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIEndpoints.swift; sourceTree = "<group>"; };
 		4B5CFFFA2C624DAB00741200 /* GFCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFCell.swift; sourceTree = "<group>"; };
 		4B5CFFFC2C624E6900741200 /* GFAvatarImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFAvatarImageView.swift; sourceTree = "<group>"; };
+		4B5CFFFE2C62B35800741200 /* GFEmptyVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFEmptyVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +109,7 @@
 				4B5CFFEC2C61606B00741200 /* GFBodyLabel.swift */,
 				4B5CFFFA2C624DAB00741200 /* GFCell.swift */,
 				4B5CFFFC2C624E6900741200 /* GFAvatarImageView.swift */,
+				4B5CFFFE2C62B35800741200 /* GFEmptyVC.swift */,
 			);
 			path = "Reuseable+VC";
 			sourceTree = "<group>";
@@ -220,6 +223,7 @@
 				4B5CFFDC2C60BA5D00741200 /* SearchVC.swift in Sources */,
 				4B5CFFF92C623E6600741200 /* APIEndpoints.swift in Sources */,
 				4B5CFFC82C60B71F00741200 /* AppDelegate.swift in Sources */,
+				4B5CFFFF2C62B35900741200 /* GFEmptyVC.swift in Sources */,
 				4B5CFFE72C60FD9100741200 /* FollowersVC.swift in Sources */,
 				4B5CFFFB2C624DAB00741200 /* GFCell.swift in Sources */,
 				4B5CFFF72C623CD300741200 /* NetworkLayer.swift in Sources */,
@@ -390,8 +394,8 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -399,6 +403,10 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.GithubSearch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -418,8 +426,8 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -427,6 +435,10 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.GithubSearch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
