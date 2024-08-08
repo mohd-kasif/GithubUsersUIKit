@@ -17,7 +17,7 @@ class GFRepoItemVC: GFItemInfoVC {
     func configData(){
         itemInfoOne.config(itemInfoType: .repos, count: userInfo.public_repos)
         itemInfoTwo.config(itemInfoType: .gist, count: userInfo.public_gists)
-        actionButton.configButton(background: .systemPurple, title: "Github Profile")
+        actionButton.configButton(background: .systemPurple, title: "Github Profile", image: SFSymbol.person1)
         actionButton.addTarget(self, action: #selector(didTap), for: .touchUpInside)
     }
     @objc func didTap(){

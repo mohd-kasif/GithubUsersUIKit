@@ -10,7 +10,7 @@ import UIKit
 class SearchVC: UIViewController {
     let imageView=UIImageView()
     let textField=GithubTextField()
-    let button=GithubButton(title: "Get Followers", color: UIColor.systemGreen)
+    let button=GithubButton(title: "Get Followers", color: UIColor.systemGreen, image: SFSymbol.person3)
     
     var istextfieldEmpty:Bool{
         return !textField.text!.isEmpty
@@ -27,9 +27,9 @@ class SearchVC: UIViewController {
             presentAlertMainThread(title: "Empty Username", message: "Please enter a username. We need to check who you are looking for 😔", buttonTitle: "Ok") //  to enter emoji press (command+control+space)
             return
         }
-        let followList=FollowersVC()
-        followList.username=textField.text
-        followList.title=textField.text
+        
+        textField.resignFirstResponder()
+        let followList=FollowersVC(loginId: textField.text!)
         navigationController?.pushViewController(followList, animated: true)
     }
     private func setupUI(){
@@ -64,12 +64,13 @@ class SearchVC: UIViewController {
     }
     
     private func dismissKeyboard(){
-        let tap=UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
+        let tap=UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing))
         view.addGestureRecognizer(tap)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        textField.text=""
         navigationController?.setNavigationBarHidden(true, animated: true)
     }
 

@@ -14,7 +14,7 @@ protocol FollowersVCDelegate:AnyObject{
 }
 
 class FollowersVC: UIViewController {
-    var username:String!
+    var username:String=""
     private var followers:[FolloworsModel]=[]
     var filterFollowers:[FolloworsModel]=[]
     var dataSource:UICollectionViewDiffableDataSource<Section, FolloworsModel>!
@@ -22,6 +22,16 @@ class FollowersVC: UIViewController {
     var page:Int=1
     var hasMoreFollowers:Bool=true
     var isSearching:Bool=false
+    
+    init(loginId:String){
+        super.init(nibName: nil, bundle: nil)
+        self.username=loginId
+        title=loginId
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -31,7 +31,8 @@ class GithubTextField: UITextField {
         minimumFontSize=12
         backgroundColor = .tertiarySystemBackground
         autocorrectionType = .no
-        placeholder="Enter a username"
+        placeholder="Enter username"
+        clearButtonMode = .whileEditing
         returnKeyType = .go
         
     }

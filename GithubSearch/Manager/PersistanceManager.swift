@@ -32,7 +32,7 @@ enum PersistanceManager{
                 }
                 completion(save(favorites: myFavorite))
  
-            case .failure(let failure):
+            case .failure(_):
                 completion(.invalidData)
             }
         }

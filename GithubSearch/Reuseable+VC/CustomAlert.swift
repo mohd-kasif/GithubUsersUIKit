@@ -12,7 +12,7 @@ class CustomAlert: UIViewController {
     let uiView=UIView()
     let titleLable=GFLabel(alignement: .center, fontSize: 20)
     let bodyLabel=GFBodyLabel(alignement: .center)
-    let button=GithubButton(title: "Ok", color: .systemPink)
+    let button=GithubButton(title: "Ok", color: .systemPink, image: SFSymbol.checkMark)
     
     var alertTitle:String?
     var message:String?

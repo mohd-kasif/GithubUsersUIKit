@@ -12,6 +12,9 @@ enum SFSymbol{
     static let gist="text.alignleft"
     static let following="heart"
     static let follows="person.2"
+    static let checkMark="checkmark.circle"
+    static let person3="person.3"
+    static let person1="person"
 }
 
 enum Keys{

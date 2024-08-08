@@ -17,7 +17,7 @@ class GFItemFollowVC:GFItemInfoVC{
     func configData(){
         itemInfoOne.config(itemInfoType: .follows, count: userInfo.followers)
         itemInfoTwo.config(itemInfoType: .following, count: userInfo.following)
-        actionButton.configButton(background: .systemGreen, title: "Get Followers")
+        actionButton.configButton(background: .systemGreen, title: "Get Followers", image: SFSymbol.person3)
         actionButton.addTarget(self, action: #selector(didTap), for: .touchUpInside)
     }
     @objc func didTap(){
