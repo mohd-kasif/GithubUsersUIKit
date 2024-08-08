@@ -8,7 +8,7 @@
 import UIKit
 
 class GFRepoItemVC: GFItemInfoVC {
-
+    weak var delegate:UserInfoVCDelegate?
     override func viewDidLoad() {
         super.viewDidLoad()
         configData()
@@ -18,5 +18,9 @@ class GFRepoItemVC: GFItemInfoVC {
         itemInfoOne.config(itemInfoType: .repos, count: userInfo.public_repos)
         itemInfoTwo.config(itemInfoType: .gist, count: userInfo.public_gists)
         actionButton.configButton(background: .systemPurple, title: "Github Profile")
+        actionButton.addTarget(self, action: #selector(didTap), for: .touchUpInside)
+    }
+    @objc func didTap(){
+        delegate?.tapGithubProfileBtn()
     }
 }

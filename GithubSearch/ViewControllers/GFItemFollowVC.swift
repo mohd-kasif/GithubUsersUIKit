@@ -8,6 +8,7 @@
 import Foundation
 
 class GFItemFollowVC:GFItemInfoVC{
+    weak var delegate:UserInfoVCDelegate?
     override func viewDidLoad() {
         super.viewDidLoad()
         configData()
@@ -17,5 +18,9 @@ class GFItemFollowVC:GFItemInfoVC{
         itemInfoOne.config(itemInfoType: .follows, count: userInfo.followers)
         itemInfoTwo.config(itemInfoType: .following, count: userInfo.following)
         actionButton.configButton(background: .systemGreen, title: "Get Followers")
+        actionButton.addTarget(self, action: #selector(didTap), for: .touchUpInside)
+    }
+    @objc func didTap(){
+        delegate?.tapGetFollowersBtn()
     }
 }

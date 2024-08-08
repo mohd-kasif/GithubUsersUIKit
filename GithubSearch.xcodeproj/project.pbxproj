@@ -15,6 +15,8 @@
 		4B5C000B2C63E88000741200 /* GFItemInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5C000A2C63E88000741200 /* GFItemInfoVC.swift */; };
 		4B5C000D2C63EB5700741200 /* GFRepoItemVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5C000C2C63EB5600741200 /* GFRepoItemVC.swift */; };
 		4B5C000F2C63ECC300741200 /* GFItemFollowVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5C000E2C63ECC300741200 /* GFItemFollowVC.swift */; };
+		4B5C00122C65089100741200 /* PersistanceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5C00112C65089000741200 /* PersistanceManager.swift */; };
+		4B5C00142C65194000741200 /* FavoriteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5C00132C65194000741200 /* FavoriteCell.swift */; };
 		4B5CFFC82C60B71F00741200 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5CFFC72C60B71F00741200 /* AppDelegate.swift */; };
 		4B5CFFCA2C60B71F00741200 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5CFFC92C60B71F00741200 /* SceneDelegate.swift */; };
 		4B5CFFCF2C60B71F00741200 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 4B5CFFCE2C60B71F00741200 /* Base */; };
@@ -46,6 +48,8 @@
 		4B5C000A2C63E88000741200 /* GFItemInfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFItemInfoVC.swift; sourceTree = "<group>"; };
 		4B5C000C2C63EB5600741200 /* GFRepoItemVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFRepoItemVC.swift; sourceTree = "<group>"; };
 		4B5C000E2C63ECC300741200 /* GFItemFollowVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFItemFollowVC.swift; sourceTree = "<group>"; };
+		4B5C00112C65089000741200 /* PersistanceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistanceManager.swift; sourceTree = "<group>"; };
+		4B5C00132C65194000741200 /* FavoriteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCell.swift; sourceTree = "<group>"; };
 		4B5CFFC42C60B71F00741200 /* GithubSearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GithubSearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B5CFFC72C60B71F00741200 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4B5CFFC92C60B71F00741200 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -81,6 +85,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4B5C00102C65087A00741200 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				4B5CFFF22C6233F000741200 /* Network Layer */,
+				4B5C00112C65089000741200 /* PersistanceManager.swift */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
 		4B5CFFBB2C60B71F00741200 = {
 			isa = PBXGroup;
 			children = (
@@ -100,8 +113,8 @@
 		4B5CFFC62C60B71F00741200 /* GithubSearch */ = {
 			isa = PBXGroup;
 			children = (
+				4B5C00102C65087A00741200 /* Manager */,
 				4B5CFFF32C6237CE00741200 /* Models */,
-				4B5CFFF22C6233F000741200 /* Network Layer */,
 				4B5CFFF12C616B2E00741200 /* ViewControllers */,
 				4B5CFFEE2C61672100741200 /* Extensions */,
 				4B5CFFE12C60F1BC00741200 /* Reuseable+VC */,
@@ -129,6 +142,7 @@
 				4B5C00022C63750000741200 /* UserInfoHeaderVC.swift */,
 				4B5C00062C63A08700741200 /* GFSecondaryLabel.swift */,
 				4B5C00082C63E25200741200 /* GFItemInfoView.swift */,
+				4B5C00132C65194000741200 /* FavoriteCell.swift */,
 			);
 			path = "Reuseable+VC";
 			sourceTree = "<group>";
@@ -249,6 +263,7 @@
 				4B5CFFDC2C60BA5D00741200 /* SearchVC.swift in Sources */,
 				4B5CFFF92C623E6600741200 /* APIEndpoints.swift in Sources */,
 				4B5CFFC82C60B71F00741200 /* AppDelegate.swift in Sources */,
+				4B5C00122C65089100741200 /* PersistanceManager.swift in Sources */,
 				4B5C000F2C63ECC300741200 /* GFItemFollowVC.swift in Sources */,
 				4B5C00032C63750000741200 /* UserInfoHeaderVC.swift in Sources */,
 				4B5CFFFF2C62B35900741200 /* GFEmptyVC.swift in Sources */,
@@ -258,6 +273,7 @@
 				4B5CFFF02C61675B00741200 /* UIViewController+Ext.swift in Sources */,
 				4B5CFFE32C60F1E200741200 /* GithubTextField.swift in Sources */,
 				4B5CFFCA2C60B71F00741200 /* SceneDelegate.swift in Sources */,
+				4B5C00142C65194000741200 /* FavoriteCell.swift in Sources */,
 				4B5CFFE02C60EF1500741200 /* GithubButton.swift in Sources */,
 				4B5CFFDE2C60BA8000741200 /* FavoriteVC.swift in Sources */,
 				4B5CFFEB2C615F3F00741200 /* GFLabel.swift in Sources */,

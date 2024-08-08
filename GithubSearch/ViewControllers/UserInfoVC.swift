@@ -6,6 +6,12 @@
 //
 
 import UIKit
+import SafariServices
+
+protocol UserInfoVCDelegate:AnyObject{
+    func tapGithubProfileBtn()
+    func tapGetFollowersBtn()
+}
 
 class UserInfoVC: UIViewController {
     var username:String!
@@ -13,6 +19,7 @@ class UserInfoVC: UIViewController {
     let itemOneView=UIView()
     let itemTwoView=UIView()
     let dateLabel=GFBodyLabel(alignement: .center)
+    weak var delegate:FollowersVCDelegate?
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -24,15 +31,25 @@ class UserInfoVC: UIViewController {
             switch result {
             case .success(let userinfo):
                 DispatchQueue.main.async {
-                    self.add(childVC: UserInfoHeaderVC(userInfo: userinfo), container: self.headerView)
-                    self.add(childVC: GFRepoItemVC(userInfo: userinfo), container: self.itemOneView)
-                    self.add(childVC: GFItemFollowVC(userInfo: userinfo), container: self.itemTwoView)
-                    self.dateLabel.text="Since \(userinfo.created_at.convertToDisplayDate())"
+                    self.configUIItems(userinfo:userinfo)
                 }
             case .failure(let error):
                 self.presentAlertMainThread(title: "Something went wrong 😔.", message: error.rawValue, buttonTitle: "Ok")
             }
         }
+    }
+    
+    func configUIItems(userinfo:UserInfoModel){
+        
+        let itemRepoVc=GFRepoItemVC(userInfo: userinfo)
+        let itemFollowersVC=GFItemFollowVC(userInfo: userinfo)
+        itemRepoVc.delegate=self
+        itemFollowersVC.delegate=self
+        
+        self.add(childVC: UserInfoHeaderVC(userInfo: userinfo), container: self.headerView)
+        self.add(childVC: itemRepoVc, container: self.itemOneView)
+        self.add(childVC: itemFollowersVC, container: self.itemTwoView)
+        self.dateLabel.text="Since \(userinfo.created_at.convertToDisplayDate())"
     }
     
     @objc func dismissSheet(){
@@ -79,6 +96,21 @@ class UserInfoVC: UIViewController {
         container.addSubview(childVC.view)
         childVC.view.frame=container.bounds
         childVC.didMove(toParent: self)
+    }
+
+}
+
+extension UserInfoVC:UserInfoVCDelegate{
+    func tapGithubProfileBtn() {
+        guard let username=username,let url=URL(string: APIEndpoints.htmlUrl+"\(username)") else {return}
+        let safariVC=SFSafariViewController(url: url)
+        safariVC.preferredControlTintColor = .systemGreen
+        present(safariVC, animated: true)
+    }
+    
+    func tapGetFollowersBtn() {
+        delegate?.updateNewFollowers(with: username)
+        dismiss(animated: true)
     }
 
 }

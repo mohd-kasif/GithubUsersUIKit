@@ -9,6 +9,10 @@ import UIKit
 enum Section{
     case main
 }
+protocol FollowersVCDelegate:AnyObject{
+    func updateNewFollowers(with username:String)
+}
+
 class FollowersVC: UIViewController {
     var username:String!
     private var followers:[FolloworsModel]=[]
@@ -24,6 +28,7 @@ class FollowersVC: UIViewController {
         view.backgroundColor = .systemBackground
         navigationController?.isNavigationBarHidden=false
         navigationController?.navigationBar.prefersLargeTitles=true
+        navigationItem.rightBarButtonItem=UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addToFavorite))
         
 
         configCollectionView()
@@ -31,6 +36,28 @@ class FollowersVC: UIViewController {
         configDataSource()
         configSearchController()
 
+    }
+    @objc func addToFavorite(){
+        self.showLoadingView()
+        NetworkLayer.shared.getUserInfo(loginId: username) {[weak self] result in
+            guard let self=self else {return}
+            self.dismissLoadingView()
+            switch result {
+            case .success(let user):
+                let favorite=FolloworsModel(login: user.login, avatar_url: user.avatar_url)
+                PersistanceManager.updateWith(favorite: favorite, persistenceType: .add) {[weak self]error in
+                    guard let self=self else {return}
+                    if error==nil{
+                        self.presentAlertMainThread(title: "Success", message: "You have successgully added this user to your favorite list 🥳", buttonTitle: "Ok")
+                    } else {
+                        self.presentAlertMainThread(title: "Someting went wrong", message: "\(error!.rawValue)🥳", buttonTitle: "Ok")
+                    }
+                }
+            case .failure(let error):
+                self.presentAlertMainThread(title: "Someting went wrong", message: "\(error.rawValue)🥳", buttonTitle: "Ok")
+            }
+        }
+        
     }
     
     func configCollectionView(){
@@ -127,10 +154,8 @@ extension FollowersVC:UICollectionViewDelegate{
         let data=activeArray[indexPath.item]
         let userinfoVc=UserInfoVC()
         userinfoVc.username=data.login
+        userinfoVc.delegate=self
         present(UINavigationController(rootViewController: userinfoVc), animated: true)
-//        navigationController?.pushViewController(UserInfoVC(follower: data), animated: true)
-        
-//        print(data,"data")
 
     }
 }
@@ -176,3 +201,15 @@ extension FollowersVC:UISearchResultsUpdating, UISearchBarDelegate{
 //        return cell
 //    }
 //}
+
+extension FollowersVC:FollowersVCDelegate{
+    func updateNewFollowers(with username: String) {
+        self.username=username
+        title=username
+        page=1
+        followers.removeAll()
+        filterFollowers.removeAll()
+        collectionView.setContentOffset(.zero, animated: true)
+        getFollowers(username: username, page: page)
+    }
+}
